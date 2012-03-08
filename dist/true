@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Skyx - Drop</title>
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <meta name="description" content="Skyx, home of Sqr">
+        <meta name="author" content="Skyx aka Isaac Grant">
+        
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <style type="text/css">
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+        </style>
+        <link href="css/bootstrap-responsive.css" rel="stylesheet">
+        
+        <link href="css/prettify.css" rel="stylesheet">
+        <script src="js/prettify.js"></script>
+        
+    </head>
+    <body onload="prettyPrint()">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></a>
+                    <a class="brand" href="index.html">Skyx</a>
+                    <div class="nav-collapse">
+                        <ul class="nav nav-pills">
+                            <li class=""><a href="index.html">Home</a></li>
+                            <li class=""><a href="archive.html">Progress Archive</a></li>
+                            <li class=""><a href="#">Sqr Source</a></li>
+                            <li class=""><a href="sqr/sqr.html">Try Sqr!</a></li>
+                            <li class="divider-vertical"></li>
+                            <li class=""><a href="http://github.com/waterwolf20" target="_new">Skyx on Github</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="header">
+                <h1>Highlighting for random files</h1>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="span12">
+                    <pre class="prettyprint lang-java">
+Car[] carArray = new Car[5];
+
+void setup() {
+  boolean bool;
+  float choice;
+  float x = 0;
+  float y = 150;
+  float w;
+  size(500,500);
+  for (int i = 0; i < carArray.length; i++) {
+    w = random(30,40);
+    choice = random(0,1);
+    if (choice > .5) {
+      bool = true;
+    } else {
+      bool = false;
+    }
+    if (y < height) {
+      y += (w/2 + (w/2)/3) + 2;
+    }
+    carArray[i] = new Car(x,y,w,w/2,bool);
+  }
+}
+
+void draw() {
+  background(200);
+  for (int i = 0; i < carArray.length; i++) {
+    carArray[i].drive();
+    carArray[i].display();
+  }
+}
+
+class Car {
+  float posX,posY;
+  float sizeX,sizeY;
+  float speed;
+  boolean forward;
+  
+  Car(float tempX,float tempY, float tempSX, float tempSY, boolean tempForward) {
+    posX = tempX;
+    posY = tempY;
+    sizeX = tempSX;
+    sizeY = tempSY;
+    forward = tempForward;
+    speed = random(2,5);
+  }
+  
+  void mouseDragged() {
+    posX = mouseX;
+    posY = mouseY;
+  }
+
+  boolean mouseOver() {
+    if ((mouseX < posX + 20) && (posX - 20 < mouseX) && (mouseY < posY + 20) && (posY - 20 < mouseY)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  void display() {
+    stroke(0);
+    rectMode(CENTER);
+    if (mousePressed == true) {
+      if (mouseOver()) {
+        mouseDragged();
+      }
+    }
+    fill(100);
+    rect(posX,posY,sizeX,sizeY);
+    fill(255);
+    ellipse(posX-(sizeX/4),posY-(sizeY/2),sizeX/3,sizeY/3);
+    ellipse(posX-(sizeX/4),posY+(sizeY/2),sizeX/3,sizeY/3);
+    ellipse(posX+(sizeX/4),posY+(sizeY/2),sizeX/3,sizeY/3);
+    ellipse(posX+(sizeX/4),posY-(sizeY/2),sizeX/3,sizeY/3);
+  }
+  void drive() {
+    if (forward) {
+      posX += speed;
+    } else {
+      posX -= speed;
+    }
+    if (posX > width) {
+      posX = 0;
+    } else if (posX < 0) {
+      posX = width;
+    }
+  }
+}
+                    </pre>
+                </div>
+            <hr>
+        
+            <footer>
+                <p>&copy; Isaac Grant 2012</p>
+                <span class="label">Highlighting brought to you by PrettyPrint</span>
+                <span class="label">Created with <a href="http://twitter.github.com/bootstrap" target="_new">Bootstrap</a></span>
+                <span class="label">Powered by <a href="http://kodingen.com" target="_new">Kodingen</a></span>
+            </footer>
+        </div>
+    </body>
+</html>

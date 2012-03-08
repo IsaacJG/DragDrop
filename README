@@ -1,0 +1,11 @@
+DragDrop is a simple script I wrote to assist in uploading files to an
+FTP server using Python. To set it up simply clone the repo, customize
+the config.txt (you can do this using flags as well).
+If you are on Windows I suggest making a shortcut to DragDrop/dist/dragdrop.exe
+so you can easily drag and drop the desired file to upload onto the shortcut.
+I haven't tested it in *nix as of yet, but I would imagine it would work the same
+in terms of creating the shortcut/launcher.
+
+If you would prefer to run it from the console/command line, simply run dragdrop.exe "<file to upload>"
+if you want to use the config.txt settings, or you can overide those settings using flags 
+Ex: dragdrop.exe -directory=foo/bar
