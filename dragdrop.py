@@ -23,8 +23,6 @@ def parseArgs():
                         args['password'] = arg[10:]
                 if '-directory' in arg:
                         args['directory'] = arg[11:]
-                if '-runpath' in arg:
-                        args['runpath'] = arg[9:]
         return args
 
 def parseConfig():
@@ -44,7 +42,7 @@ def parseConfig():
         runpath  = config[config.find('runpath')+8:]
         return { 'host': host, 'username': username,
                 'password': password, 'directory': directory,
-                'encrypt': encrypt, 'runpath': runpath }
+                'encrypt': encrypt }
 
 def main(host, username, password, directory, encrypt):
         print 'Signing on to %s as %s...' % (host, username)
@@ -58,35 +56,24 @@ def main(host, username, password, directory, encrypt):
         print ftp.getwelcome()
         if len(sys.argv) > 1:
                 filename = sys.argv[1].split('\\')[-1]
-                ##if 'win' in sys.platform:
-                #        cmd('copy %s %s' % (sys.argv[1], runpath + '\\' + filename))
-                #else:
-                ##        cmd('cp %s %s' % (sys.argv[1], runpath + '\\' + filename))
-                ##f = open(runpath + '\\' + filename, 'rb')
                 f = open(sys.argv[1], 'r')
                 print 'Uploading %s to %s...' % (filename, directory)
                 ftp.cwd(directory)
                 ftp.storbinary('STOR %s' % filename, f)
                 raw_input('Completed! Press enter to exit')
                 f.close()
-                ##if 'win' in sys.platform:
-                #        cmd('del %s' % filename)
-                #else:
-                ##        cmd('rm %s' % filename)
         else:
                 print 'No file to upload, exiting...'
                 sys.exit(0)
 
 if __name__ == '__main__':
         data = parseConfig()
-        runpath = data['runpath']
         args = parseArgs()
         for i in data:
                 for j in args:
                         if i == j:
                                 if data[i] != args[j]:
                                         data[i] = args[j]
-        runpath = data['runpath']
         main(data['host'], data['username'],
              data['password'], data['directory'],
              data['encrypt'])
