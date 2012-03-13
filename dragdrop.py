@@ -70,25 +70,35 @@ def main(host, username, password, directory, encrypt):
 if __name__ == '__main__':
         data = parseConfig()
         args = parseArgs()
-        try:
-                if data['help']:
-                        print '''Usage: dropbox.exe [file] -[args]\n
-                        --------------------------------------------
-                        \n\n\n
-                        ACCEPTABLE ARGUMENTS:\n
-                        -encrypt            |  Enable base64 password encryption\n
-                        -host               |  Host to upload to\n
-                        -username           |  Username for FTP\n
-                        -password           |  Password for FTP\n
-                        -directory          |  The directory to upload the file to\n'''
-                        sys.exit(0)
-        except (exception, e):
-                pass
+        toAdd = {}
         for i in data:
                 for j in args:
                         if i == j:
                                 if data[i] != args[j]:
                                         data[i] = args[j]
+                        elif j not in data:
+                                toAdd[j] = args[j]
+        for i in toAdd:
+                data[i] = toAdd[i]
+        try:
+                if data['help']:
+                        print '''Usage: dragdrop.exe [file] [-args]\n
+Ex: dragdrop.exe X:\Foo.bar -arg=value
+Arguments:\n
+-------------------------------------
+-encrypt        |       password passed in config or as a flag is encrypted with base64\n
+        true | false\n
+-host           |       ftp host to upload to\n
+        (ftp.microsoft.com)\n
+-username       |       username to log on to ftp server with\n
+-password       |       ftp password\n
+-directory      |       directory on ftp server where file will be uploaded\n
+-help           |       this dialogue\n
+------------------------------------------------------------------------
+http://github.com/waterwolf20/DragDrop'''
+                sys.exit(0)
+        except Exception, e:
+                pass
         main(data['host'], data['username'],
              data['password'], data['directory'],
              data['encrypt'])
