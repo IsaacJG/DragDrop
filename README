@@ -7,5 +7,6 @@ I haven't tested it in *nix as of yet, but I would imagine it would work the sam
 in terms of creating the shortcut/launcher.
 
 If you would prefer to run it from the console/command line, simply run 
-dragdrop.exe "<file to upload>" if you want to use the config.txt settings, or you can overide those settings using flags 
+dragdrop.exe "<file to upload>" if you want to use the config.txt settings, 
+or you can overide those settings using flags 
 Ex: dragdrop.exe -directory=foo/bar
