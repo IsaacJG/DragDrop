@@ -3,4 +3,3 @@ host=ftp.foobar.com
 username=foo
 password=ifEncryptIsTrueThenThePasswordIsEncryptedUsingBase64
 directory=where\u\upload\
-runpath=C:\foo\bar
