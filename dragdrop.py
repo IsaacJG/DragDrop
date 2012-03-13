@@ -64,7 +64,8 @@ def main(host, username, password, directory, encrypt):
                 raw_input('Completed! Press enter to exit')
                 f.close()
         else:
-                print 'No file to upload, exiting...'
+                print 'No file to uploadexiting...'
+                raw_input('Press enter to exit...')
                 sys.exit(0)
 
 if __name__ == '__main__':
