@@ -23,6 +23,8 @@ def parseArgs():
                         args['password'] = arg[10:]
                 if '-directory' in arg:
                         args['directory'] = arg[11:]
+                if '-help' in arg:
+                        args['help'] = True
         return args
 
 def parseConfig():
@@ -39,7 +41,6 @@ def parseConfig():
         password = password[:password.find('\n')]
         directory = config[config.find('directory')+10:]
         directory = directory[:directory.find('\n')]
-        runpath  = config[config.find('runpath')+8:]
         return { 'host': host, 'username': username,
                 'password': password, 'directory': directory,
                 'encrypt': encrypt }
@@ -69,6 +70,20 @@ def main(host, username, password, directory, encrypt):
 if __name__ == '__main__':
         data = parseConfig()
         args = parseArgs()
+        try:
+                if data['help']:
+                        print '''Usage: dropbox.exe [file] -[args]\n
+                        --------------------------------------------
+                        \n\n\n
+                        ACCEPTABLE ARGUMENTS:\n
+                        -encrypt            |  Enable base64 password encryption\n
+                        -host               |  Host to upload to\n
+                        -username           |  Username for FTP\n
+                        -password           |  Password for FTP\n
+                        -directory          |  The directory to upload the file to\n'''
+                        sys.exit(0)
+        except (exception, e):
+                pass
         for i in data:
                 for j in args:
                         if i == j:
